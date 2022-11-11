@@ -2,7 +2,7 @@
 
 [Architecture and Protocol Model](./architecture-overview.md)
 - [Principles]()
-	- [Permission to Contact]()
+	- [Permission to Contact](./principles-permission.md)
 	- [Interoperability]()
 - [Technical Concepts]()
 	- [Relationships]()
@@ -10,6 +10,7 @@
 	- [Groups]()
 	- [Multiple Devices]()
 	- [Backup]()
+	- [Client Protocol]()
 - [Reference Implementations]()
 	- [Directory Service]()
 	- [Sending Service]()
