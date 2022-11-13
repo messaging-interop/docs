@@ -14,6 +14,6 @@
 - [Reference Implementations](reference-implementations.md)
 	- [Directory Service](reference/directory-service.md)
 	- [Sender's Service Agent](reference/sending-service.md)
-	- [Receiver's Service Agent]()
+	- [Receiver's Service Agent](reference/receiving-service.md)
 - [Privacy Analysis]()
 - [Related Work](related-work.md)
