@@ -32,7 +32,7 @@ This is sufficient for a group to talk amongst themselves - agreement with other
 There is a range of approaches to handle consistenty of group membership and message ordering; here are a few examples:
 
 ### Fully Decentralized
-Each message has a set of recipients. Membership is implicitly changed by changing the recipient list for new messsages. Messages are not fully ordered - messages can be relatively ordered to indicate a reply. Email and iMessage function in this way (as do legacy Signal groups).
+Each message has a set of recipients. Membership is implicitly changed by changing the recipient list for new messsages. Messages are not fully ordered - messages can be relatively ordered to indicate a reply. Email and iMessage function in this way (as do legacy Signal groups). Race conditions may cause groups (and conversations) to fork.
 
 ### Centralized Membership, Decentralized message delivery
 Members of a group agree on an authoritative source of group membership (and other group metadata like a name), but do not rely on an external resource (like a server) to adjudicate consistent message ordering. Signal's private groups function in this way. 
