@@ -21,4 +21,4 @@ A **relationship** \\(R\\) between Alex and Blair is a pair of data structures \
   - A long-term delivery address for \\(P_b\\)(this facilitates recovery)
     - With a guaranteed valid until date
   - An ephemeral delivery address for \\(P_b\\)
-    - With a (closer) guaranteed valid until date
+    - With a short expiry date
