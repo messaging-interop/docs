@@ -7,7 +7,7 @@
 - [Technical Concepts]()
 	- [Relationships]()
 	- [Introductions]()
-	- [Groups]()
+	- [Groups](groups.md)
 	- [Multiple Devices]()
 	- [Backup]()
 	- [Client Protocol](client-protocol.md)
