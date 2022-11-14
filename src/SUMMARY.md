@@ -1,9 +1,9 @@
 # Overview
 
-[Architecture and Protocol Model](./architecture-overview.md)
+[Architecture and Protocol Model](architecture-overview.md)
 - [Principles]()
-	- [Permission to Contact](./principles-permission.md)
-	- [Interoperability]()
+	- [Permission to Contact](principles-permission.md)
+	- [Interoperability](interoperability.md)
 - [Technical Concepts]()
 	- [Relationships](relationships.md)
 	- [Groups](groups.md)
