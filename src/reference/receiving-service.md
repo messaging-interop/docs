@@ -12,7 +12,7 @@ Our reference RSA provides the following functionality to clients who present un
 
 The reference RSA provides address derivation by use of randomized public key encryption.
 
-The RSA also, as specified in [Interoperability], allows senders to encrypt addresses to the RSA so that senders can produce derived addresses indistinguishible to the Sending service without receiving new addresses from the recipient.
+The RSA also, as specified in [Interoperability](/interoperability.md), allows senders to encrypt addresses to the RSA so that senders can produce derived addresses indistinguishible to the Sending service without receiving new addresses from the recipient.
 
 
 ## Analysis and alternative approaches
