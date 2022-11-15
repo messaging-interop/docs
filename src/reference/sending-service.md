@@ -17,5 +17,3 @@ Typically, on group creation, the group creator will nominate their sender's ser
 
 
 
-
-
