@@ -11,7 +11,7 @@ The QSS also serves as the sender's agent for storing encrypted ciphertexts that
 
 ## Group Coordination
 
-As discussed in [Groups](), it can be helpful for for stability and coherence for groups to have consistent state and ordering of messages. MLS requires, for example, a Delivery Service provide consistent ordering of messages. This function can be provided by a sender's service.
+As discussed in [Groups](/groups.md), it can be helpful for for stability and coherence for groups to have consistent state and ordering of messages. MLS requires, for example, a Delivery Service provide consistent ordering of messages. This function can be provided by a sender's service.
 
 Typically, on group creation, the group creator will nominate their sender's service agent as the service agent for the group they create. 
 
