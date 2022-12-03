@@ -49,5 +49,5 @@ Directory services can also attest to bindings of identity (keys) with names in 
 
 ## Considerations
 
-This architecture is alike SMTP in that senders and recipients make independent choices of agents for sending and receiving messages, like mail submission agents and mail delivery agents. Unlike SMTP, these agents only handle cipherthexts, and clients are responsible for storage of plaintext messagess. They may choose to enlist the aid of additional services to help synchroize this storage across devices, or provide recovery in case of device loss.
+This architecture is alike SMTP in that senders and recipients make independent choices of agents for sending and receiving messages, analogously to mail submission agents and mail delivery agents. Unlike SMTP, these agents only handle ciphertexts, and clients are responsible for storage of plaintext messages. They may choose to enlist the aid of additional services to help synchroize this storage across devices, or provide recovery in case of device loss.
 
