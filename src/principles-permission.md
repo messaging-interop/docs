@@ -2,7 +2,7 @@
 
 ## Problem
 
-Existing approaches to mitigating unwanted communications in an architecture that defaults to accepts messages from any sender, rely on collecting and processing message contents or metadata, or push work on individuals to filter incoming messages, sender identities, and message requests.
+Existing approaches to mitigating unwanted communications in architectures that default to accepting all messages, rely on collecting and processing message contents or metadata, or push work on individuals to filter incoming messages, sender identities, and message requests.
 
 
 ## Design

@@ -11,7 +11,7 @@
 	- [Identities](identities.md)
 	- [Multiple Devices](devices.md)
 	- [Recovery](recovery.md)
-	<!-- - [Client Protocol](client-protocol.md) -->
+	- [Client App Protocol](client-protocol.md) - 
 - [Reference Implementations](reference-implementations.md)
 	- [Directory Service](reference/directory-service.md)
 	- [Sender's Service Agent](reference/sending-service.md)
