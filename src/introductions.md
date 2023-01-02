@@ -9,7 +9,7 @@ A personal introduction can be considered equivalent to starting a group of 3. A
 
 Alex can introduce Blair and Charlie by starting a group among the three of them:
 
-- Alex generates a new IPK and addresses for their identity in this group to form a new proton \\(GP_A\\)
+- Alex generates a new IPK and addresses for their identity in this group to form a new Particle \\(GP_A\\)
 	- Alex sends \\(GP_A\\) to Blair and Charlie, and attests that \\(GP_A\\) is [equivalent to](identities.md) the cryptographic identities Blair and Charlie already know for Alex - \\(P_{A to B}\\) and \\(P_{A to C}\\), respectively.
 - Alex also generates placeholder identities for Blair (\\(GP_{AB}\\)) and Charlie (\\(GP_{AC}\\)), and sends the respective public and private keys to Blair and Charlie.
 	- That is, Alex sends Blair the public key for \\(GP_{AC}\\) and the private key for \\(GP_{AB}\\), and likewise for \\(AC\\).
@@ -27,7 +27,7 @@ The state of this group is "Alex has created a group of 3, with placeholders for
 Blair can accept this invitation by claiming the placeholder:
 ![Diagram of groups after Blair joins](img/introduction-2.png)
 
-- Like Alex, Blair generates a new identity (Proton) for its membership in this group \\(GP_B\\)
+- Like Alex, Blair generates a new identity (Particle) for its membership in this group \\(GP_B\\)
 - Blair should attest to Alex that \\(GP_B\\) is equivalent to the existing identity \\(P_{B to A}\\).
 - In the group, Blair should use the placeholder identity \\(GP_{AB}\\) to attest that it will be replaced by \\(GP_B\\). 
 

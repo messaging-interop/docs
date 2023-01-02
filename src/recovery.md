@@ -9,7 +9,7 @@ People may choose different points on this spectrum for themselves, for their me
 We can introduce an additional recovery mechanism for relationships that is robust against losing all my data and forgetting my recovery secret(s), but has safeguards against the escrow party impersonating me - using the notion of introductions:
 
 ### Escrowed Relationship Backup
-Alex has a relationship with Blair that is based on cryptographic secrets stored in their respective protons. To protect against the loss of that data, Alex can introduce Blair to a future Alex \\(A'\\), and escrow \\(A'\\)'s keys with a third party.
+Alex has a relationship with Blair that is based on cryptographic secrets stored in their respective Particles. To protect against the loss of that data, Alex can introduce Blair to a future Alex \\(A'\\), and escrow \\(A'\\)'s keys with a third party.
 
 The data Alex needs to escrow are:
 - A long-term address for Blair.
@@ -17,7 +17,7 @@ The data Alex needs to escrow are:
 - A signing key for \\(A'\\)
 - A preferred name for Blair
 
-If Alex loses all of their proton data, they can obtain this backup, notify all their relationships of the loss, and use each \\(A'\\) to introduce the relationship to a new device resident identity \\(A_r\\).
+If Alex loses all of their Particle data, they can obtain this backup, notify all their relationships of the loss, and use each \\(A'\\) to introduce the relationship to a new device resident identity \\(A_r\\).
 
 As with introductions, remote parties should only accept the use of this placeholder key \\(A'\\) for introduction to a new identity. The escrow party cannot impersonate the Alex, but can falsely claim to be a future, post-recovery Alex \\(A_r\\). This should be easy to repudiate if Alex is still online. Recipients of such a recovery message should immediately consult \\(A\\), and until they can verify \\(A_r\\), consider the possibility that the escrow party had inserted themselves in the conversation.
 

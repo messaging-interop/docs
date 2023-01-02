@@ -7,9 +7,9 @@ Existing approaches to mitigating unwanted communications in architectures that 
 
 ## Design
 
-The proton architecture separates communications in an existing relationship, from mechanisms of starting new relationships. This allows the former to minimize transport metadata, while allowing people to control when they start new relationships.
+The Communicator architecture separates communications in an existing relationship, from mechanisms of starting new relationships. This allows the former to minimize transport metadata, while allowing people to control when they start new relationships.
 
-People already start relationships (or invite them) when they give out an email address, or post it publicly and solicit messages. The proton architecture fulfills these same transactions, in the following ways:
+People already start relationships (or invite them) when they give out an email address, or post it publicly and solicit messages. The Communicator architecture fulfills these same transactions, in the following ways:
 
 * Direct exchange
 	* In the way that people today give their email address to a specific person or business, they can instead send an identity public key, and an initial set of addresses as a way of starting a new relationship. 
