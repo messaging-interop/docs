@@ -1,6 +1,6 @@
 # Groups
 
-A group is a set of people who want to talk amongst themselves. Whereas the Proton data structure for a 1:1 relationship containes keys and addresses for person at the other end of the relationship, the Group Proton data structure contains the same data (keys and addresses) for all other participants. For a Group \\(G\\), the member \\(G_c\\) would have the following data structure
+A group is a set of people who want to talk amongst themselves. Whereas the Particle data structure for a 1:1 relationship containes keys and addresses for person at the other end of the relationship, the Group Particle data structure contains the same data (keys and addresses) for all other participants. For a Group \\(G\\), the member \\(G_c\\) would have the following data structure
 
 - (optional) A name for the group
 - (optional) A profile picture for the group
@@ -13,14 +13,14 @@ A group is a set of people who want to talk amongst themselves. Whereas the Prot
 		- Optionally, an external resource that attests to a link between \\(IPK_i\\) and some external identity (e.g. a scoped username like an email address)
 	- A list of [receiver's service agents](reference/receiving-service.md) (minimum 2), that each contains
 	  - A URL representing the service identity and a means to obtain the service's configuration:
-	    -  E.g. `example.com/.well-known/Proton.json`
+	    -  E.g. `example.com/.well-known/Communicator.json`
 	    (analogous to an MX record)
 	  - A long-term delivery address for \\(P_b\\)(this facilitates recovery)
 	    - With a guaranteed valid until date
 	  - An ephemeral delivery address for \\(P_b\\)
 	    - With a short expiry date
 - An Identity private key for \\(IPK_c\\) corresponding to the \\(IPK_i\\) held by other group members
-  - A set of associations of \\(IPK_c\\) with other related protons (relationships)defined by cryptographic attestation - see [Identity].
+  - A set of associations of \\(IPK_c\\) with other related Particles (relationships)defined by cryptographic attestation - see [Identity].
 - An Identity private key for \\(GP_c\\) corresponding to the \\(IPK_c\\) held by other members of the group
 - Message Security state variables
 	- discussed later in this document
@@ -40,7 +40,7 @@ Members of a group agree on an authoritative source of group membership (and oth
 ### Centralized Membership and Message
 Chat rooms, mailing lists, and Slack, are examples of this. There is a single source of truth for message ordering - participants compete to edit a collaborative, (mostly) append-only document that is the room's message transcript. The room (and implicitly, the room operator) is the fundamental entity, not the set of participants that make up the group.
 
-These different approaches are suitable, roughly speaking, for groups of increasing size. The proton architecture has the following two approaches to group management:
+These different approaches are suitable, roughly speaking, for groups of increasing size. The Communicator architecture has the following two approaches to group management:
 ## Lightweight Groups
 These groups operate in the fully decentralized way. The Message security state is a pairwise double ratchet state for each member of the group.
 

@@ -19,4 +19,4 @@ We can fulfill this desire in a more privacy-preserving way by exposing on-devic
 		- send messages programatically in relationships that have already been used with the app.
 
 
-	- In the B2C case, this could include 2FA notifications. For example, I sign up for an account on a bank's website, using a proton identity. This proton identity lets the bank send me short (alerts) and long (promotional mail) text messages. I can also allow the bank's app to process app-specific payloads, for example 2FA requests that I must authorize in their app after authenticating.
+	- In the B2C case, this could include 2FA notifications. For example, I sign up for an account on a bank's website, using a Communicator identity. This Communicator identity lets the bank send me short (alerts) and long (promotional mail) text messages. I can also allow the bank's app to process app-specific payloads, for example 2FA requests that I must authorize in their app after authenticating.

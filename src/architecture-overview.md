@@ -1,25 +1,31 @@
-# Architecture & Protocol Model
+# Communicator: a protocol for durable, consensual conversations
 
 ## Problem
 
-A fundamental problem in messaging today is that we overload addresses (e.g. phone numbers or email addresses) as identity. This unexpectedly fractures conversations when people change addresses. It also requires that people do work to unify conversations with the same person, by mapping different addresses to a single contact. Because addresses convey identify, it exposes metadata in transit about who is talking to each other.
+Messaging today has a fundamental architectural problem in that we overload addresses (e.g. phone numbers or email addresses) as identity. This unexpectedly fractures conversations across different transport mediums, and when people change addresses. 
+People have to manually unify conversations across addresses by maintaining a contacts database that maps people to their many addresses. Because addresses convey identify, it exposes metadata in transit about who is talking to each other.
 
-Moreover, the use of static addresses faciltates cross-context tracking. As web and mobile platforms block cross-site and cross-app tracking, tracking is moving to email address and phone number as canonical identifiers for individuals. Our current architectural default that we accept messages from any sender enables spam and harassment, as it is costlier for a victim to change addresses than for an attacker to evade sender-identity blocking.
+Messaging also has a conceptual problem in that we assume, implicitly if not explicitly, that a person has one identity in any system. From those identities, we derive the idea of messages by directing data from one identity to some set of recipient identities, and we can then collect messages into conversations by organizing individual messages in relation to each other, or by the set of participating identities.
 
-The Proton architecture addresses these issues by decoupling identity from the addresses used for message transmission. Message transmission, decoupled from identity, can now accomodate, flexible, interchangeable transmission routes with improved metadata privacy. People can interact directly with relationships and contextual identies as a first class concept, instead of indirectly by manipulating addresses in the ways we are familar with - sharing, blocking, and filling in contact cards.
+This construction leads to an architectural default that anyone can message anyone else, enabing spam and harassment, as it is costlier for a victim to change addresses than for an attacker to evade sender-identity blocking. In turn, this incentivizes systems to be hostile to using multiple identities. There is no architectural distinction between a solicited and unsolicited message, so systems rely on data about who we have messaged, and who we know (contacts databases) to infer the notion of a consensual relationship. 
+
+The Communicator architecture addresses these problems by making a relationship between two people the core concept, and decoupling identity at the application layer, from the addresses used for transport. 
 
 ## Protocol
 
-The Proton Architecture extends the core idea of Double Ratchet key management - that two parties protect their communications with shared secrets that are updated with each message exchange - to the addresses that they use to deliver those messages to each other. Two parties Alex and Blair that have shared keys and addresses, are said to have a **Proton Relationship**, and we call the data structure that each party uses to store that shared state a **Proton**, to reflect the intuition that it has a synchronized partner, and they maintain that syncronization through message exchange.
+The Communicator architecture is a messaging protocol that enables people to create relationships and asynchronously exchange messages in those relationships. It extends the core idea of Double Ratchet key management - that two parties protect their communications with shared secrets that are updated with each message exchange - to the addresses that they use to deliver those messages to each other. 
+
+
+Two parties Alex and Blair consensually create a Communicator relationship by exchanging data that allows them to create an authenticated encryption session, and transport messages in that session with each other. This dynamic state that allows Alex and Blair to securely exchange messages is stored in a data structure we call a Particle, to reflect the intuition that Alex and Blair each have a corresponding data structure, entangled through message exchange.
 
 ### Continue existing conversations
-Once Alex and Blair have established a proton relationship, they can use it to send messages in the following way:
+Once Alex and Blair have established a Communicator relationship, they can use it to send messages in the following way:
 
 ![sending a message in a relationship](img/message-exchange.png)
 
-Alex and Blair each enlist the help of multiple, persistently online services to perform the asymmetric roles of sending and receiving messages, each acting as one party's agent.  Alex's state (Proton) for their relationship with Blair contains information about Blair's [receiving service agents](reference/receiving-service.md), and addresses for Blair at each of those receiving services.
+Alex and Blair each enlist the help of multiple, persistently online services to perform the asymmetric roles of sending and receiving messages, each acting as one party's agent.  Alex's state (Particle) for their relationship with Blair contains information about Blair's [receiving service agents](reference/receiving-service.md), and addresses for Blair at each of those receiving services.
 
-When Alex has a message to send to Blair, Alex attaches to the plaintext any updates to their Proton state (e.g. updates to Alex's receiving services or addresses), and encrypts the message to Blair using the agreed-upon key schedule.
+When Alex has a message to send to Blair, Alex attaches to the plaintext any updates to their Particle state (e.g. updates to Alex's receiving services or addresses), and encrypts the message to Blair using the agreed-upon key schedule.
 
 To transmit this ciphertext, Alex chooses one of their sending services and one of Blair's receiving services. Alex can then route the message by presenting Alex's chosen sending service:
 * The message ciphertext
@@ -29,7 +35,7 @@ To transmit this ciphertext, Alex chooses one of their sending services and one 
 The sending service does not need to know Blair's address, so Alex encrypts it with a public key published by the Receiving Service.
 
 ### Start new relationships
-Initializing a proton relationship requires a bidirectional exchange of keys and addresses. In the simplest manner, Alex and Blair may simply exchange these directly between their devices through a local, peer to peer transport such as NFC or Bluetooth.
+Initializing a Communicator relationship requires a bidirectional exchange of keys and addresses. In the simplest manner, Alex and Blair may simply exchange these directly between their devices through a local, peer to peer transport such as NFC or Bluetooth.
 
 In many cases, Alex and Blair will rely on a persistently online Directory Service to broker an asynchronous, remote exchange. 
 
