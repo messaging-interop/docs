@@ -1,7 +1,8 @@
 # Overview
 
-[Architecture and Protocol Model](architecture-overview.md)
-- [Principles]()
+[Communicator Overview](architecture-overview.md)
+- [Relationship Concepts]()
+	- [Authentication](authentication.md)
 	- [Permission to Contact](principles-permission.md)
 	- [Interoperability](interoperability.md)
 - [Technical Concepts]()
