@@ -1,0 +1,711 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Modern Interoperable Messaging</title>
+        <meta name="robots" content="noindex" />
+        <!-- Custom HTML head -->
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <!-- MathJax -->
+        <script async type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="architecture-overview.html">Communicator Overview</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">1.</strong> Relationship Concepts</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="authentication.html"><strong aria-hidden="true">1.1.</strong> Authentication</a></li><li class="chapter-item expanded "><a href="durability.html"><strong aria-hidden="true">1.2.</strong> Durability</a></li><li class="chapter-item expanded "><a href="principles-permission.html"><strong aria-hidden="true">1.3.</strong> Permission to Contact</a></li><li class="chapter-item expanded "><a href="interoperability.html"><strong aria-hidden="true">1.4.</strong> Interoperability</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">2.</strong> Technical Concepts</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="relationships.html"><strong aria-hidden="true">2.1.</strong> Relationships</a></li><li class="chapter-item expanded "><a href="groups.html"><strong aria-hidden="true">2.2.</strong> Groups</a></li><li class="chapter-item expanded "><a href="introductions.html"><strong aria-hidden="true">2.3.</strong> Introductions</a></li><li class="chapter-item expanded "><a href="identities.html"><strong aria-hidden="true">2.4.</strong> Identities</a></li><li class="chapter-item expanded "><a href="devices.html"><strong aria-hidden="true">2.5.</strong> Multiple Devices</a></li><li class="chapter-item expanded "><a href="recovery.html"><strong aria-hidden="true">2.6.</strong> Recovery</a></li><li class="chapter-item expanded "><a href="client-protocol.html"><strong aria-hidden="true">2.7.</strong> Client App Protocol</a></li></ol></li><li class="chapter-item expanded "><a href="reference-implementations.html"><strong aria-hidden="true">3.</strong> Reference Implementations</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="reference/directory-service.html"><strong aria-hidden="true">3.1.</strong> Directory Service</a></li><li class="chapter-item expanded "><a href="reference/sending-service.html"><strong aria-hidden="true">3.2.</strong> Sender's Service Agent</a></li><li class="chapter-item expanded "><a href="reference/receiving-service.html"><strong aria-hidden="true">3.3.</strong> Receiver's Service Agent</a></li></ol></li><li class="chapter-item expanded "><a href="related-work.html"><strong aria-hidden="true">4.</strong> Related Work</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Modern Interoperable Messaging</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="communicator-a-protocol-for-durable-consensual-conversations"><a class="header" href="#communicator-a-protocol-for-durable-consensual-conversations">Communicator: a protocol for durable, consensual conversations</a></h1>
+<h2 id="problem"><a class="header" href="#problem">Problem</a></h2>
+<p>Messaging today has a fundamental architectural problem in that we overload addresses (e.g. phone numbers or email addresses) as identity. This unexpectedly fractures conversations across different transport mediums, and when people change addresses. 
+People have to manually unify conversations across addresses by maintaining a contacts database that maps people to their many addresses. Because addresses convey identify, it exposes metadata in transit about who is talking to each other.</p>
+<p>Messaging also has a conceptual problem in that we assume, implicitly if not explicitly, that a person has one identity in any system. From those identities, we derive the concept of messages by directing data from one identity to some set of recipient identities, and we can then collect messages into conversations by organizing individual messages in relation to each other, or by the set of participating identities.</p>
+<p>This construction leads to an architectural default that anyone can message anyone else, enabing spam and harassment, as it is costlier for a victim to change addresses than for an attacker to evade sender-identity blocking. In turn, this incentivizes systems to be hostile to using multiple identities. There is no architectural distinction between a solicited and unsolicited message, so systems rely on data about who we have messaged, and who we know (contacts databases) to infer the notion of a consensual relationship. </p>
+<p>The Communicator architecture addresses these problems by making a relationship between two people the core concept, and decoupling identity at the application layer, from the addresses used for transport. </p>
+<h2 id="protocol"><a class="header" href="#protocol">Protocol</a></h2>
+<p>The Communicator architecture is a messaging protocol that enables people to asynchronously create relationships and  exchange messages in those relationships. It extends the core idea of Double Ratchet key management - that two parties protect their communications with shared secrets that are updated with each message exchange - to the addresses that they use to deliver those messages to each other. </p>
+<p>Two parties Alex and Blair consensually create a Communicator relationship by exchanging data that allows them to create an authenticated encryption session, and transport messages in that session with each other. This dynamic state that allows Alex and Blair to securely exchange messages is stored in a data structure we call a Particle, to reflect the intuition that Alex and Blair each have a corresponding data structure, entangled through message exchange.</p>
+<h3 id="continue-existing-conversations"><a class="header" href="#continue-existing-conversations">Continue existing conversations</a></h3>
+<p>Once Alex and Blair have established a Communicator relationship, they can use it to send messages in the following way:</p>
+<p><img src="img/message-exchange.png" alt="sending a message in a relationship" /></p>
+<p>Alex and Blair each enlist the help of multiple, persistently online services to perform the asymmetric roles of sending and receiving messages, each acting as one party's agent.  Alex's state (Particle) for their relationship with Blair contains information about Blair's <a href="reference/receiving-service.html">receiving service agents</a>, and addresses for Blair at each of those receiving services.</p>
+<p>When Alex has a message to send to Blair, Alex attaches to the plaintext any updates to their Particle state (e.g. updates to Alex's receiving services or addresses), and encrypts the message to Blair using the agreed-upon key schedule.</p>
+<p>To transmit this ciphertext, Alex chooses one of their sending services and one of Blair's receiving services. Alex can then route the message by presenting Alex's chosen sending service:</p>
+<ul>
+<li>The message ciphertext</li>
+<li>A URI for the chosen receiving service</li>
+<li>an address for Blair at that receiving service</li>
+</ul>
+<p>The sending service does not need to know Blair's address, so Alex encrypts it with a public key published by the Receiving Service.</p>
+<h3 id="start-new-relationships"><a class="header" href="#start-new-relationships">Start new relationships</a></h3>
+<p>Initializing a Communicator relationship requires a bidirectional exchange of keys and addresses. In the simplest manner, Alex and Blair may simply exchange these directly between their devices through a local, peer to peer transport such as Bluetooth.</p>
+<p>In many cases, Alex and Blair will rely on a persistently online Directory Service to broker an asynchronous, remote exchange. </p>
+<h4 id="brokered-directory-service"><a class="header" href="#brokered-directory-service">Brokered Directory Service</a></h4>
+<p>The most full-featured directory service can vend keys (long-term identity key and prekeys - call this a KeyPackage) and addresses for names within a namespace they assert authority over.</p>
+<p><img src="img/brokered-directory.png" alt="brokered directory service" /></p>
+<p>This architecture resembles the deployment of most end to end encrypted messaging services today (Signal, iMessage, WhatsApp).</p>
+<p>The directory service in this role grants permission to contact, and may subject this permission to rules within its own namespace.</p>
+<h4 id="attesting-directory-service"><a class="header" href="#attesting-directory-service">Attesting Directory Service</a></h4>
+<p>Directory services can also attest to bindings of identity (keys) with names in their namespace without granting permission to contact by issuing addresses. This is useful for establishing trust for relationships established through an intermediary - either an insecure medium, or via a person to person introduction.</p>
+<p><img src="img/attested-directory.png" alt="attesting directory service" /></p>
+<h2 id="considerations"><a class="header" href="#considerations">Considerations</a></h2>
+<p>This architecture is alike SMTP in that senders and recipients make independent choices of agents for sending and receiving messages, analogously to mail submission agents and mail delivery agents. Unlike SMTP, these agents only handle ciphertexts, and clients are responsible for storage of plaintext messages. They may choose to enlist the aid of additional services to help synchronize this storage across devices, or provide recovery in case of device loss.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="authentication"><a class="header" href="#authentication">Authentication</a></h1>
+<p>Who is at the other end of a relationship?</p>
+<p>In the Communicator Architecture, authentication of the other party is rooted in the formation of the relationship, and may be supplemented by later <a href="identities.html">attestations</a> with other identities or sources of identity, such as a key directory</p>
+<h2 id="how-did-this-relationship-start"><a class="header" href="#how-did-this-relationship-start">How did this relationship start?</a></h2>
+<p>A relationship is formed by an initiating party Ira, for a recipient party Reed: </p>
+<ol>
+<li>Ira generates an identity key (along with other key material), addresses, and sends them as a relationship invitation to Reed. </li>
+<li>Reed uses this data to send an initial message to Ira. <sup class="footnote-reference"><a href="#1">1</a></sup></li>
+</ol>
+<p>Ira and Reed's authentication of the other party is rooted in how these first messages are transmitted and what parties are involved.</p>
+<ul>
+<li>Direct Exchange 
+<ul>
+<li>Suppose Ira and Reed have an existing means of secure bidirectional data exchange. Ira sends a relationship invitation to Reed; Reed sends their identity public key in response over this channel, and the initial message over the Communicator architecture. In doing so, the trust in each other's identity is initially equivalent to their trust in this bidirectional channel.<sup class="footnote-reference"><a href="#2">2</a></sup></li>
+</ul>
+</li>
+<li>Introduction by an intermediary
+<ul>
+<li>Ira may allow an intermediary server \(S\) to make introductions for them at the server's discretion. Ira can upload an identity public key, prekey packages, and address packages (or give the server a way to diversify addresses). The server can then vend the relationship invitation message at its discretion, asserting some identity for Ira. A user Reed who obtains a relationship invitation in this way knows they are communicating with an entity that \(S\) asserts is Ira. Ira, though, only knows that it Reed is someone who found them through \(S\). Reed may send some additional information about their identity - e.g. that their identity public key is registered on \(S\) for some identity \(R\).
+<ul>
+<li>If both Ira and Reed use identities registered with \(S\), this resembles the authentication for deployed telephony-indexed E2EE messaging systems</li>
+<li>This also allows for relationships with asymmetrical trust. \(S\) may be operated by a newspaper, through which Ira may solicit tips. Reed may ask \(S\) for an introduction to Ira, without initially revealing identity information about themselves, but is able to place some trust in \(S\) as the entity vouching for Ira's identity.</li>
+</ul>
+</li>
+<li>If Sam has a relationship with Ira and Reed, Sam can <a href="introductions.html">introduce them</a>. Ira and Reed initially only know each other through Sam (and must assume that Sam may have MITM'd this relationship), until they have otherwise verified each other's identity</li>
+</ul>
+</li>
+</ul>
+<h2 id="additional-sources-of-authentication"><a class="header" href="#additional-sources-of-authentication">Additional sources of Authentication</a></h2>
+<ul>
+<li>Verification
+<ul>
+<li>Ira and Reed may verify their identity public keys through a trusted out of band channel</li>
+</ul>
+</li>
+<li>Association with other identities
+<ul>
+<li>Participants may use the <a href="identities.html">attestation</a> operations to prove associations with identities. For example, Ira and Reed, who started a relationship with an in-person exchange, may also attest equivalence to identities in a public key directory. </li>
+</ul>
+</li>
+</ul>
+<div class="footnote-definition" id="1"><sup class="footnote-definition-label">1</sup>
+<p>To use X3DH as an example, the relationship invitation contains Ira's identity key, prekeys and addresses. Reed's initial message corresponds to the X3DH initial message, transmitted through the <a href="architecture-overview.html">Communicator architecture</a> of sending and receiving agents</p>
+</div>
+<div class="footnote-definition" id="2"><sup class="footnote-definition-label">2</sup>
+<p>Operating systems are increasingly restrictive (with good reason) of mobile apps' access to low-level local networking protocols that would enable bidirectional exchange of data. A sketch of how one might implement this exchange, akin to the <a href="https://fidoalliance.org/specs/fido-v2.0-id-20180227/fido-client-to-authenticator-protocol-v2.0-id-20180227.html">CTAP2</a> secure channel between an authenticator and client:</p>
+<ul>
+<li>Ira uploads the relationship message to a server, and generates a QR code with a url to fetch the message, and a hash of the message</li>
+<li>Reed scans the QR code, fetches the message, and verifies the hash over the message.</li>
+<li>Concurrently, Reed broadcasts a BLE advertisement of a new Identity public key generated for this relationship</li>
+<li>Reed sends an initial message in reply over the Communicator architecture</li>
+</ul>
+</div>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="durability"><a class="header" href="#durability">Durability</a></h1>
+<p>People expect their conversations to be resilient against the loss of a device.</p>
+<p>There are two aspects of recovery:</p>
+<ul>
+<li>Identities and addresses of people I was conversing with
+<ul>
+<li>This data is typically backed up on its own as a contacts database, or implicitly with message history</li>
+</ul>
+</li>
+<li>The ability to communicate with identities I previously used</li>
+</ul>
+<p>Today, the identities I use are wholly under the control of the services I use. This is very helpful if I lose my device or forget my passwords, and convince these services to give me control of the same identity on a new device. It's somewhat less helpful if an attacker poses as me to convince the service to &quot;recover&quot; access to those identities.</p>
+<p>It is long-standing wisdom that people cannot reliably protect secrets; the diversity of crypto wallets, their failure modes, and people's choices of which models they are comfortable with, are illustrative examples of the frontiers of people's ability to protect secret data that they use.</p>
+<p>But to surrender control of our identities wholly to services overlooks the broad availability of data recovery options now deployed that place <a href="https://signal.org/blog/secure-value-recovery/">limited</a> or <a href="https://support.apple.com/guide/security/account-recovery-contact-security-secafa525057/1/web/1">shared</a> trust in other parties to recover their data. There are increasingly many ways for people to back up their data without completely trusting the backup entity with access to their data.</p>
+<h2 id="communicator-relationship-recovery"><a class="header" href="#communicator-relationship-recovery">Communicator Relationship Recovery</a></h2>
+<p>Because identity in the communicator architecture is a subordinate concept to a relationship, we are primarily concerned with the recovery of a relationship between two parties Alex and Blair, from data loss, compromise of private data, or network denial of service. </p>
+<p>The Communicator Architecture is organized on the principle that two communicants Alex and Blair are the primary agents for recovering their relationship. They may (and likely should) enlist the help of a third party - this is especially helpful against compromise of device secrets - but the third party provides only an alternative, not authoritative claim of anyone's identity.</p>
+<p>What does that look like in practice?</p>
+<ul>
+<li>Alex's sole device is destroyed. They had backed up their Particle data to a secure store such as iCloud Keychain. They use a secret only they know (their previous device passcode) to restore their Particle data. Alex is able to recover the relationship with only the help of their secure data recovery service. This recovery does not need Blair's cooperation, nor does this change need to be visible to Blair.</li>
+<li>Alex used the mechanism described in <a href="recovery.html">recovery</a> to coordinate backup identities with Blair, stored with a recovery service \(R\) in plaintext
+<ul>
+<li>Alex's device is destroyed and they forget their recovery secret. They authenticate with \(R\), make use of the backed-up identity, and recover their relationship with Blair. The introduction of a third party that was able to impersonate Alex has degraded Blair's authentication of Alex; this degradation must be transparent to Blair, and is accomplished though the use of the backup identity.</li>
+<li>From Blair's point of view, there is the Alex identity \(A\)they were talking to, and the recovery identity \(A'\). Both may be in use at the same time - e.g. if either Alex's device, or Alex's backup are compromised.</li>
+<li>Today, \(A'\) replaces \(A\). Blair has no way to resume an established messaging session with \(A\), and services provide safeguards or transparency against a malicious replacement of identity, advising users to reestablish trust after such a transition.</li>
+<li>The Communicator architecture does not presume that either of the competing claims to Alex's identity, \(A\) or \(A'\) should be trusted by default. Both channels are available to Blair to resolve.</li>
+</ul>
+</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="permission-to-contact"><a class="header" href="#permission-to-contact">Permission to Contact</a></h1>
+<h2 id="problem-1"><a class="header" href="#problem-1">Problem</a></h2>
+<p>Existing approaches to mitigating unwanted communications in architectures that default to accepting all messages, rely on collecting and processing message contents or metadata, or push work on individuals to filter incoming messages, sender identities, and message requests.</p>
+<h2 id="design"><a class="header" href="#design">Design</a></h2>
+<p>The Communicator architecture separates communications in an existing relationship, from mechanisms of starting new relationships. This allows the former to minimize transport metadata, while allowing people to control when they start new relationships.</p>
+<p>People already start relationships (or invite them) when they give out an email address, or post it publicly and solicit messages. The Communicator architecture fulfills these same transactions, in the following ways:</p>
+<ul>
+<li>Direct exchange
+<ul>
+<li>In the way that people today give their email address to a specific person or business, they can instead send an identity public key, and an initial set of addresses as a way of starting a new relationship. </li>
+<li>This can be done over a local transport (Bluetooth or NFC), through a secure channel (signing up for an account on a website), or over an insecure legacy transport.</li>
+</ul>
+</li>
+<li>Introduction
+<ul>
+<li>Someone I already have a relationship with can introduce me to a third person. Discussed further in <a href="/introductions.html">Introduction</a></li>
+<li>I can entrust a directory service to broker introductions according to some rules (members of the same organization, degrees of separation in a social graph, etc)
+<ul>
+<li>This may be an open solicitation to new conversations. A newspaper might vouch for the identity of its journalists by operating a directory service, and provide a way to start new conversations with them. </li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="bridging"><a class="header" href="#bridging">Bridging</a></h2>
+<p>People already have many existing conversations, in many mediums, and it will be important to bridge conversations into this new architecture. This is typically why messaging architectures default to accepting any incoming messages. Bridging techniques are outside the scope of this document. </p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="interoperability"><a class="header" href="#interoperability">Interoperability</a></h1>
+<p>People use diverse software and services, and it is important to allow people make independent choices about the software agents they use to send and receive messages - just as they do with email and telephony. The key points of interoperability in this architecture are:</p>
+<ul>
+<li>Between senders' and recipients' client software that encrypts and decrypts messages under this architecture and maintain syncronized Particle state.</li>
+<li>Between Sending and Receiving agents to transmit ciphertexts for a destination address</li>
+<li>Between client software and Sending and Receiving Agents
+<ul>
+<li>This allows one client to use multiple sending and receiving agents to provide reliability and privacy</li>
+</ul>
+</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="relationships"><a class="header" href="#relationships">Relationships</a></h1>
+<p>Relationships, not identities, are the fundamental unit of this architecture. Identities are contextual to each relationship, and users can choose how each of those contextual relationships relate to fixed or public identies, such as those published in directories.</p>
+<p>A <strong>relationship</strong> \(R\) between Alex and Blair is a pair of data structures \(P_a\) and \(P_b\), stored by Alex and Blair respectively, that represent each end (role) of the relationship, and contain the data needed to communicate with the other party. Let’s call  \(P_a\) and \(P_b\) <strong>Particles</strong>, to reflect the intuition that they are entangled (through message exchange) and reflect shared state.</p>
+<p>\(P_a\) consists of:</p>
+<ul>
+<li>The remote party's preferred presentation:
+<ul>
+<li>A string representing a preferred name</li>
+<li>Optionally, pronouns</li>
+<li>Optionally, a profile picture</li>
+</ul>
+</li>
+<li>An Identity Public Key (\(IPK_B\)) for \(P_b\)
+<ul>
+<li>Optionally, an external resource that attests to a binding between \(IPK_B\) and some external identity (e.g. a scoped username like an email address)</li>
+</ul>
+</li>
+<li>An Identity private key for \(Pa\) corresponding to the \(IPK_A\)held by \(P_b\)</li>
+<li>Message security state variables
+<ul>
+<li>These would be Double Ratchet chain keys for 1:1 conversations</li>
+</ul>
+</li>
+<li>A list of <a href="reference/receiving-service.html">receiver's service agents</a> (minimum 2), that each contains
+<ul>
+<li>A URL representing the service identity and a means to obtain the service's configuration:
+<ul>
+<li>E.g. <code>example.com/.well-known/Communicator.json</code>
+(analogous to an MX record)</li>
+</ul>
+</li>
+<li>A long-term delivery address for \(P_b\)(this facilitates recovery)
+<ul>
+<li>With a guaranteed valid until date</li>
+</ul>
+</li>
+<li>An ephemeral delivery address for \(P_b\)
+<ul>
+<li>With a short expiry date</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="groups"><a class="header" href="#groups">Groups</a></h1>
+<p>A group is a set of people who want to talk amongst themselves. Whereas the Particle data structure for a 1:1 relationship containes keys and addresses for person at the other end of the relationship, the Group Particle data structure contains the same data (keys and addresses) for all other participants. For a Group \(G\), the member \(G_c\) would have the following data structure</p>
+<ul>
+<li>(optional) A name for the group</li>
+<li>(optional) A profile picture for the group</li>
+<li>For each other group member \(GP_i\):
+<ul>
+<li>The group member's preferred presentation:
+<ul>
+<li>A string representing a preferred name</li>
+<li>Optionally, pronouns</li>
+<li>Optionally, a profile picture</li>
+</ul>
+</li>
+<li>An Identity Public Key (\(IPK_i\))
+<ul>
+<li>Optionally, an external resource that attests to a link between \(IPK_i\) and some external identity (e.g. a scoped username like an email address)</li>
+</ul>
+</li>
+<li>A list of <a href="reference/receiving-service.html">receiver's service agents</a> (minimum 2), that each contains
+<ul>
+<li>A URL representing the service identity and a means to obtain the service's configuration:
+<ul>
+<li>E.g. <code>example.com/.well-known/Communicator.json</code>
+(analogous to an MX record)</li>
+</ul>
+</li>
+<li>A long-term delivery address for \(P_b\)(this facilitates recovery)
+<ul>
+<li>With a guaranteed valid until date</li>
+</ul>
+</li>
+<li>An ephemeral delivery address for \(P_b\)
+<ul>
+<li>With a short expiry date</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>An Identity private key for \(IPK_c\) corresponding to the \(IPK_i\) held by other group members
+<ul>
+<li>A set of associations of \(IPK_c\) with other related Particles (relationships)defined by cryptographic attestation - see [Identity].</li>
+</ul>
+</li>
+<li>An Identity private key for \(GP_c\) corresponding to the \(IPK_c\) held by other members of the group</li>
+<li>Message Security state variables
+<ul>
+<li>discussed later in this document</li>
+</ul>
+</li>
+</ul>
+<p>This is sufficient for a group to talk amongst themselves - agreement with other participants on who (defined by Identity Public Keys) is a member of this group, and how to deliver messages to them. </p>
+<h2 id="group-management"><a class="header" href="#group-management">Group Management</a></h2>
+<p>There is a range of approaches to handle consistenty of group membership and message ordering; here are a few examples:</p>
+<h3 id="fully-decentralized"><a class="header" href="#fully-decentralized">Fully Decentralized</a></h3>
+<p>Each message has a set of recipients. Membership is implicitly changed by changing the recipient list for new messsages. Messages are not fully ordered - messages can be relatively ordered to indicate a reply. Email and iMessage function in this way (as do legacy Signal groups). Race conditions may cause groups (and conversations) to fork.</p>
+<h3 id="centralized-membership-decentralized-message-delivery"><a class="header" href="#centralized-membership-decentralized-message-delivery">Centralized Membership, Decentralized message delivery</a></h3>
+<p>Members of a group agree on an authoritative source of group membership (and other group metadata like a name), but do not rely on an external resource (like a server) to adjudicate consistent message ordering. Signal's private groups function in this way. </p>
+<h3 id="centralized-membership-and-message"><a class="header" href="#centralized-membership-and-message">Centralized Membership and Message</a></h3>
+<p>Chat rooms, mailing lists, and Slack, are examples of this. There is a single source of truth for message ordering - participants compete to edit a collaborative, (mostly) append-only document that is the room's message transcript. The room (and implicitly, the room operator) is the fundamental entity, not the set of participants that make up the group.</p>
+<p>These different approaches are suitable, roughly speaking, for groups of increasing size. The Communicator architecture has the following two approaches to group management:</p>
+<h2 id="lightweight-groups"><a class="header" href="#lightweight-groups">Lightweight Groups</a></h2>
+<p>These groups operate in the fully decentralized way. The Message security state is a pairwise double ratchet state for each member of the group.</p>
+<h2 id="coordinated-groups"><a class="header" href="#coordinated-groups">Coordinated Groups</a></h2>
+<p>These groups leverage a server agent to store the group's state (e.g. membership), and as the single Sender's Service Agent for the entire group. This allows it to perform the message ordering required by Message Layer Security. Here, the message security will be provided by MLS, not pairwise Double Ratchet.</p>
+<p>Coordinated groups are robust against failure or denial of service by the server agent by falling back to a lightweight group, and can nominate another server agent to take over. </p>
+<p>The Application layer can choose between these architectures when forming a group, and can add coordination to a lightweight group at anytime. </p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="introductions"><a class="header" href="#introductions">Introductions</a></h1>
+<p>How do we form groups when we don't know if the participants can message each other - that is, if they have an established relationship? Introductions provide a powerful primitive for making new relationships and groups.</p>
+<p>A personal introduction can be considered equivalent to starting a group of 3. Alex has relationships with Blair and Charlie, and wants to introduce them. Note that Alex has two independent cryptographic identities - Alex as Blair knows them (\(P_{AtoB}\)), and Alex as Charlie knows them(\(P_{AtoC}\))</p>
+<p><img src="img/introduction-0.png" alt="Diagram of the start condition, where Alex has two independent relationships" /></p>
+<p>Alex can introduce Blair and Charlie by starting a group among the three of them:</p>
+<ul>
+<li>
+<p>Alex generates a new IPK and addresses for their identity in this group to form a new Particle \(GP_A\)</p>
+<ul>
+<li>Alex sends \(GP_A\) to Blair and Charlie, and attests that \(GP_A\) is <a href="identities.html">equivalent to</a> the cryptographic identities Blair and Charlie already know for Alex - \(P_{A to B}\) and \(P_{A to C}\), respectively.</li>
+</ul>
+</li>
+<li>
+<p>Alex also generates placeholder identities for Blair (\(GP_{AB}\)) and Charlie (\(GP_{AC}\)), and sends the respective public and private keys to Blair and Charlie.</p>
+<ul>
+<li>That is, Alex sends Blair the public key for \(GP_{AC}\) and the private key for \(GP_{AB}\), and likewise for \(AC\).</li>
+<li>This step is required because we do not want to reuse cryptographic identities in different conversations, and allows Alex to asynchronously start a group without relying on Blair and Charlie to generate a new key pair.</li>
+</ul>
+</li>
+<li>
+<p>Alex also generates new long-term addresses for Blair and Charlie, derived from the addresses in AB and AC, and sends them along with the placeholder identities.</p>
+</li>
+<li>
+<p>All three participants now have the necessary info to send each other bidirectional messages.</p>
+</li>
+</ul>
+<p>The state of this group is &quot;Alex has created a group of 3, with placeholders for Blair and Charlie&quot;</p>
+<p><img src="img/introduction-1.png" alt="Diagram of resulting group with placeholder identities" /></p>
+<h2 id="placeholder-identities"><a class="header" href="#placeholder-identities">Placeholder Identities</a></h2>
+<p>Blair can accept this invitation by claiming the placeholder:
+<img src="img/introduction-2.png" alt="Diagram of groups after Blair joins" /></p>
+<ul>
+<li>Like Alex, Blair generates a new identity (Particle) for its membership in this group \(GP_B\)</li>
+<li>Blair should attest to Alex that \(GP_B\) is equivalent to the existing identity \(P_{B to A}\).</li>
+<li>In the group, Blair should use the placeholder identity \(GP_{AB}\) to attest that it will be replaced by \(GP_B\). </li>
+</ul>
+<p>Note that Charlie does not yet have proof that Blair (\(GP_B\)) is not an alias for Alex, since Charlie only knows Blair through Alex. Charlie and Blair would need additional proofs of identity to establish a basis of trust independent of Alex.</p>
+<p>If there is a natural context (e.g. the identities AB and AC were established from identities in the same directory), then Alex may also include that identity binding to identities in that directory in the initial introduction. But there may not be such context. If Alex and Blair exchanged keys in person, Alex doesn't have any additional identity information for Blair to share with Charlie.</p>
+<p>If Charlie claims his invitation, then Blair and Charlie can also create a side conversation of their own, producing the final introduction state:</p>
+<p><img src="img/introduction-3.png" alt="Final introduction state" /></p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="identities"><a class="header" href="#identities">Identities</a></h1>
+<p>In this architecture, users will have many contextual identities and, will want to unify or fork those identies and the associated conversations.</p>
+<p>Attestations allow people to assert relationships between cryptographic identities for which they hold the private keys. There are two kinds of attestations, with proposed implementations that require security review. Suppose there are identities A and B represented by the public keys \(A_{pk}, B_{pk}\), and corresponding private keys \(A_{sk}, B_{sk}\). Let \(Sign_{sk}(M)\) represent the signature of message \(m\) with private key \(sk\)</p>
+<ul>
+<li>Sequential - B follows A
+<ul>
+<li>Proposal: \(Sign_{B_{sk}}(B_{pk}||Sign_{A_{sk}}(B_{pk}))\)</li>
+</ul>
+</li>
+<li>Parallel - A is equivalent to B
+<ul>
+<li>Proposal: \(Sign_{A_{sk}}(B_{pk})\ ||\ Sign_{B_{sk}}(A_{pk})\)</li>
+</ul>
+</li>
+</ul>
+<p>We should consider trust to be transmitted directionally in a Sequential relationship, and bidirectionally in a Parallel relationship</p>
+<ul>
+<li>If B follows A
+<ul>
+<li>I can trust B with the union of trust in A and B</li>
+<li>I learn nothing new about trust in B</li>
+</ul>
+</li>
+<li>If A is equivalent to B
+<ul>
+<li>I can now trust A and B with the union of trust in A and B</li>
+</ul>
+</li>
+</ul>
+<p>Messages from a key B that follows a key A should be merged chronologically with messages from A in a conversation history. Messages from a key B that is equivalent to key A should not be.</p>
+<p>These attestations can be used in the following ways:</p>
+<ul>
+<li>Rolling keys over time
+<ul>
+<li>the replacement key should follow the key being replaced</li>
+</ul>
+</li>
+<li>Linking a new identity to an existing one.
+<ul>
+<li>Alex and Blair met and exchanged keys \(IPK_A\) and \(IPK_B\), but Alex wants to prove they also have a attested identity \(IPK_{A_D}\) from a Directory Server
+<ul>
+<li>Alex should generate a new \(IPK_{A-Merged}\) and present attestations that it follows \(IPK_A\) and \(IPK_{A_D}\)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Forking threads
+<ul>
+<li>If Alex wants to fork a conversation they have with Blair across identities  \(IPK_A\) and \(IPK_B\), Alex can generate a new identity key \(IPK_{A'}\), and assert an equivalence between \(IPK_A\) and \(IPK_{A'}\). From Blair’s point of view, \(IPK_{A'}\) should be a new thread, inheriting whatever trust they had in \(IPK_A\)</li>
+</ul>
+</li>
+</ul>
+<h3 id="conflicts"><a class="header" href="#conflicts">Conflicts</a></h3>
+<p>After issuing an attestation that B follows A, clients should delete the private key for A, and sending chain keys derived from A. (They should keep the receiving keys for some period of time). Future messages should be sent with chain keys derived from B.</p>
+<p>Still, conflicts can arise if clients receive conflicting attestations that B follows A, and C follows A. These can result from software bugs, a <a href="devices.html">device with outdated state</a> , or compromise of private keys. A device with outdated state can heal its state by reaching consensus with a device with newer state about ordering of keys. E.g. by issuing an attestation that C follows B.</p>
+<p>Otherwise, these conflicts must be resolved by the user. There are two cryptographic identities claiming to be Blair, which one is correct? Examples of how this might arise:</p>
+<ul>
+<li>Alex introduces Blair to a backup identity \(A’\) that follows \(A\).  The backup service is compromised and an attacker attempts to impersonate Alex using \(A’\). There are now two claims to Alex’s identity.
+<ul>
+<li>The presumption could be that a use of a backup identity A’ while A is active is fraudulent and should be assumed to be malicious. But Alex’s device might have been compromised, and is attempting to restart their relationship from a backup.</li>
+<li>Technology can’t resolve this conflict - Blair has to socially resolve this conflict between the two claims to Alex’s identity, for example, by verifying keys in person</li>
+</ul>
+</li>
+<li>An external attestation is a way of resolving this conflict.
+<ul>
+<li>It can also be a source of conflict. Blair has a relationship with Alex, and Alex has asserted and equivalence with the public key for @Alex on example.com's Directory Server at a point in time.</li>
+<li>If example.com's Diretory publishes a new public key for \Alex on Twitter, the association is no longer valid, and we have a conflict
+<ul>
+<li>Alex can heal the conflict by issuing an attestation with the new public key</li>
+<li>The conflict may also arise from an account takeover on the external service rather than a compromise of Alex’s device. This conflict also needs to be resolved socially.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="multiple-devices"><a class="header" href="#multiple-devices">Multiple Devices</a></h1>
+<p>People often have multiple computing devices, and want to use them to send and receive messages as the same identity. Messaging architectures today, generally model different devices as distinct members of messaging groups, and rely on the application layer to hide each participant's devices.</p>
+<p>In a federated architecture, people cannot rely on other parties' software to hide the devices they use, and how they use them. Our messaging architecture should reflect the way that people expect to converse, which is that they present a uniform identity to other parties, regardless of which device they're using.</p>
+<p>This is an area for future work, a sketch follows of how this might be implemented:</p>
+<h2 id="constellations-of-devices-emulating-a-single-ratcheting-identity"><a class="header" href="#constellations-of-devices-emulating-a-single-ratcheting-identity">Constellations of devices emulating a single, ratcheting identity</a></h2>
+<p>This assumes users have a set of devices which are running the same client software managing key state, and which can exchange end to end encrypted messages amongst each other. In addition, these devices may also enlist a server to store and synchronize data, protected with keys that are only held by these devices.</p>
+<p>Using double ratchet as an example, all of Alex's devices emulate a single ratchet identity by sharing private keys amongst themselves, copying peer devices on messages sent to the remote party, and fanning out incoming messages to all of Alex's devices. This works under ideal conditions, but the concept needs adaptation to be resilient against dropped and delayed messages, and race conditions. Key challenges will be:</p>
+<ul>
+<li>Resolving ratchet conflicts
+<ul>
+<li>If two devices perform a ratchet at the same time, they may fork the ratchet chain. </li>
+</ul>
+</li>
+<li>Robustness with offline devices
+<ul>
+<li>One edge scenario is that a device sends a message with a ratchet public key, and is immediately destroyed before it can share the ratchet private key with its peers, locking peers out of the conversation.</li>
+</ul>
+</li>
+</ul>
+<p>From the standpoint of a theoretical recipient that receives and processes all messages from each of Alex's devices, these messages contribute to a virtual ratchet state - that may fork into a tree instead of an ordered chain. Each of Alex's devices is aware of a subset of this virtual state, filling in the details as it receives messages from peers and the remote party, or consults their sync service. Each device, acting on the possibly incomplete information, has to decide on actions as it sends and receives messages - e.g. which branch of a forked chain to use.</p>
+<p>The failure modes raised above hint at an explicit window of valid ratchet states, representing some depth of leaves of the tree, to ensure devices can send messages without depending on data from their peers. To keep this window small, devices must aggressively prune the tree, and narrow the depth of valid states. The former can be done with agreement on an ordering of states. The latter could be done with an explicit signal to the remote party that a particular DH key is the oldest one that should be honored - e.g. if the corresponding private key has been committed to (end to end encrypted) cloud storage, or been received by N other peer devices.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="recovery"><a class="header" href="#recovery">Recovery</a></h1>
+<p>We can use the notion of introduction to provide a recovery mechanism that does not depend on a user secret.</p>
+<p>Suppose Alex and Blair have a relationship, based in identity (public keys) \(A\) and \(B\)</p>
+<p>When a user Alex enlists a recovery service \(R\) to recover a relationship with Blair, they are effectively asking \(R\) to reintroduce them as a new identity \(A_r\). If this recovery flow is to be resilient against device compromise, then \(A_r\) cannot be known ahead of time (or a device compromise would give the attacker access to \(A_r\) as well). </p>
+<h2 id="preparation"><a class="header" href="#preparation">Preparation</a></h2>
+<p>Alex and Blair can pre-arrange recovery in the following way:</p>
+<ul>
+<li>Alex creates a recovery identity key pair \(A_r\), a (long-lived) recovery address(es) \(Addr_A\), and a recovery identifier \(ID_A\) for a key directory \(K_A\), and sends the public key, address, key directory, and recovery identifier to Blair.
+<ul>
+<li>Blair symmetrically generates \(B_r\), \(Addr_B\), \(ID_B\) for \(K_B\), and sends them (excluding the private key) to Alex.</li>
+<li>(Implicitly the public identity key is accompanied by some pre-keys as needed for a key agreement protocol throughout this description)</li>
+</ul>
+</li>
+<li>Alex can then store the Recovery Particle \(RP_B\) with a trusted party in plaintext:
+<ul>
+<li>Blair's name</li>
+<li>A recovery identity key that Blair has today \(B_r\)</li>
+<li>Recovery Address(es) for Blair \(Addr_B\)</li>
+<li>A way to get a future identity for Blair: \(ID_B\) at \(K_B\)</li>
+<li>The key directory entry that Blair expects to receive messages from: \(ID_A\)</li>
+</ul>
+</li>
+</ul>
+<p>The first exchange limits the exposure of data about Alex and Blair's current communications - only the recipient's name, receiving service agent, and key directory.</p>
+<h2 id="recovery-1"><a class="header" href="#recovery-1">Recovery</a></h2>
+<ol>
+<li>
+<p>Alex can then recover from compromise or data loss by authenticating with \(R\) to retrieve \(RP_B\), generating a new identity \(A'\), and registering the public key for \(A'\) with \(K_A\) for the identity \(ID_A\).</p>
+</li>
+<li>
+<p>Alex can then compose an initial key agreement message to \(B_r\), from \(A'\) and send it to \(Addr_B\)</p>
+</li>
+<li>
+<p>Blair, on receipt of a message at \(B_r\), can consult \(K_A\) for Alex's new identity public key under the entry for \(ID_A\)</p>
+</li>
+</ol>
+<p>If the key directory also allows the registration of a new address, then \(K_A\) and \(K_B\) can jointly provide recovery from data loss by both parties, as \(ID_A\) and \(ID_B\) effectively form a pre-arranged rendezvous.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="client-api"><a class="header" href="#client-api">Client API</a></h1>
+<h2 id="problem-2"><a class="header" href="#problem-2">Problem</a></h2>
+<p>For Alex and Blair to communicate using different sofware across an interoperable standard, the standard must be stable. This standard should itself support the kinds of payloads that already exist or have been standardized - short texts, longform prose (email), and call invitations.</p>
+<p>This is in tension with people's desire to communicate in new and novel ways - for recent examples, with short-form video or ephemeral messages. There are many circumstances where Alex and Blair need to agree on an app to do specific things within the relationship. Innovation in this space has long relied on new apps' access to people's social graphs by granting access to a user's contacts, with corresponding privacy harms and abuses.</p>
+<h2 id="design-1"><a class="header" href="#design-1">Design</a></h2>
+<p>We can fulfill this desire in a more privacy-preserving way by exposing on-device APIs that allows people to use new apps with their existing social graph, while abstracting away the implementation of message transmission. Examples of use cases and privacy-preserving API's:</p>
+<ul>
+<li>Custom messaging clients
+<ul>
+<li>People may want to use different user interfaces (possibly at the same time) to send and receive messages, just as people want to make an independent choice of mail app from their mail service. A new messaging interface app can request permission to access a person's messaging database, and to an API to send messages. This doesn't expose keys or addresses, and operating systems can help prevent exfiltration of message plaintext with sandboxing, just as they do for app extensions that handle sensitive data, such as keyboard extensions.</li>
+</ul>
+</li>
+<li>Novel Payloads
+<ul>
+<li>
+<p>Lots of media types that people want to exchange are split across multiple services - e.g. payments, ephemeral messages, or call invitations. These use cases can be accommodated with API's that allow these apps to </p>
+<ul>
+<li>register for a payload type</li>
+<li>supply a payload within the hosting app's compose window
+<ul>
+<li>This payload can include a fallback message indicating what app can be used to display the payload</li>
+</ul>
+</li>
+<li>invoke a compose window from their app</li>
+<li>send messages programatically in relationships that have already been used with the app.</li>
+</ul>
+</li>
+<li>
+<p>In the B2C case, this could include 2FA notifications. For example, I sign up for an account on a bank's website, using a Communicator identity. This Communicator identity lets the bank send me short (alerts) and long (promotional mail) text messages. I can also allow the bank's app to process app-specific payloads, for example 2FA requests that I must authorize in their app after authenticating.</p>
+</li>
+</ul>
+</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="reference-implementations"><a class="header" href="#reference-implementations">Reference Implementations</a></h1>
+<p>The following sections offer basic implementations of the required components. They assume an authentication service that handles identifiable data (e.g. payment) and allows people to reclaim their account by presenting external credentals (e.g. proof of identification or of payment method).</p>
+<p>This reference implementation of the Directory Service consumes identifiable authentication tokens, so that people can reset their directory entries by appeal to toe the authentication service.</p>
+<p>The receiving and sending services, however, separate the identity used for authentication, from usage metadata by the use of unlinkable tokens (e.g. Privacy Pass). The authentication service vends tokens, rate-limiting their issuance to prevent abuse. Those tokens can be redeemed with the operational servers. </p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="directory-service"><a class="header" href="#directory-service">Directory Service</a></h1>
+<p>This Directory Service asserts authority over names \(n\) within their namespace \(N\). This namespace could represent members of an organization with a defined membership (e.g. a school or business), or could be a social media context where people create avatars and connect to other members to have conversations (e.g. a matchmaking service - i.e. a dating app)</p>
+<p>After authentiating as a user \(n\), a person can perform the following operations with the Directory Service:</p>
+<ul>
+<li>register an identity public key for \(n\)</li>
+<li>replace the existing identity public key for \(n\)
+<ul>
+<li>optionally, provide proof that the user still has posession of the previous identity private key by signing the new identity public key.</li>
+</ul>
+</li>
+<li>query for the quantity of pre-key and address packages available on the server</li>
+<li>upload additional pre-key and address material</li>
+</ul>
+<p>The Directory Service also provides the following services:</p>
+<ul>
+<li>Query for the identity public key for \(n\)</li>
+<li>Request permission to contact \(n\)
+<ul>
+<li>The Directory service can return an address</li>
+<li>The directory service may choose to authenticate such requests. E.g. the social graph of dating services are not completely open, but are deliberately restricted by the operator to restrict choice.</li>
+</ul>
+</li>
+</ul>
+<p>The directory service should provide proof of its honesty by implementing key transparency. </p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="senders-service-agent"><a class="header" href="#senders-service-agent">Sender's Service Agent</a></h1>
+<p>The function of the Sender's Service Agent (SSA) is to act as the sender's online agent for storing data - either transiently (queueing messages, storing message attachments) or persistently (group state). SSA's should provide technical assurances against reidentifying metadata by not handling identifiable information about the sender, and using unlinkable tokens to authorize use of the service and rate-limit resource usage.</p>
+<h2 id="message-queueing"><a class="header" href="#message-queueing">Message Queueing</a></h2>
+<p>In the message transmission path, the SSA is an intermediary between a person's computing devices, and the recipient's service agent, providing reliability and anonymity. </p>
+<h2 id="attachment-storage"><a class="header" href="#attachment-storage">Attachment Storage</a></h2>
+<p>The QSS also serves as the sender's agent for storing encrypted ciphertexts that are too large to fit in the message protocol, for later retrieval by the recipient or their agent.</p>
+<h2 id="group-coordination"><a class="header" href="#group-coordination">Group Coordination</a></h2>
+<p>As discussed in <a href="reference//groups.html">Groups</a>, it can be helpful for for stability and coherence for groups to have consistent state and ordering of messages. MLS requires, for example, a Delivery Service provide consistent ordering of messages. This function can be provided by a sender's service.</p>
+<p>Typically, on group creation, the group creator will nominate their sender's service agent as the service agent for the group they create. </p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="receivers-service-agent"><a class="header" href="#receivers-service-agent">Receiver's Service Agent</a></h1>
+<p>The Receiver's Service Agent (RSA) helps recipients protect the privacy of their relationships by providing a supply of addresses at which they can receive messages.</p>
+<p>Receiving services must also help senders hide addresses from their sending service, by publishing a public encryption key so that senders can encrypt addresses to the receiving service.</p>
+<p>Our reference RSA provides the following functionality to clients who present unlinkable authorization tokens:</p>
+<ul>
+<li>Provide a supply of seed addresses </li>
+<li>Allow clients to derive new addresses from those seed addresses without interacting with the RSA </li>
+<li>Allow clients to query for messages delvered to those seed addresses</li>
+<li>Allow clients to register for immediate notifications for newly received messsages (e.g. with a push token or by opening a WebSocket)</li>
+</ul>
+<p>The reference RSA provides address derivation by use of randomized public key encryption.</p>
+<p>The RSA also, as specified in <a href="reference//interoperability.html">Interoperability</a>, allows senders to encrypt addresses to the RSA so that senders can produce derived addresses indistinguishible to the Sending service without receiving new addresses from the recipient.</p>
+<h2 id="analysis-and-alternative-approaches"><a class="header" href="#analysis-and-alternative-approaches">Analysis and alternative approaches</a></h2>
+<p>The RSA will receive messages with addresses that have two layers of randomized encryption applied, to prevent linking messages to a particular sender or recipient. The outer layer renders addresses indistinguishible to sending services. The inner layer renders addresses indistinguishible to senders so that e.g., senders cannot compare addresses to determine if they are talking to the same party.</p>
+<p>This double encryption produces somewhat large addresses, which is an opportunity for optimization. But fundamentally, we want to have a large, sparse address space so that users can use arbitrarily many addresses, while making it difficult to enumerate valid addresses. </p>
+<p>The RSA holds the private keys to decrypt these addresses and reveal the seed address, as it must to resolve indistinguishible addresses to a particular recipient. The primary privacy protection is that unlinkable tokens separate the recipient from any identifiers the client presented to the Authorization Service. </p>
+<p>WebSocket connections may be disassociated from the user's IP address by the use of a Multi-Party Relay (MPR) such as iCloud Private Relay or INVISV Relay<sup class="footnote-reference"><a href="#invisv">1</a></sup>. If users wish to receive real-time notifications for messages by registering a platform push token, these are pseudonymous identifiers that may be linked back to a user with the aid of the platform.</p>
+<p>RSA's may take additional steps to reduce their knowledge of message metadata, possibly with some efficiency tradeoff. For example, by loosening the constraint that they know the specific user each address maps to, to associating each adddress with a paging set. It may notify a set of clients, who can decide if they wish to fetch the message contents, e.g. through an MPR.</p>
+<p>Importantly, these additional steps do not require any manual intervention from senders. Because addresses in this architecture are defined by recipients and are automatically updated when senders receive new addresss from recipients, people can change RSA's and seamlessly transition between multiple RSA's.</p>
+<p><sup class="footnote-reference"><a href="#invisv">1</a></sup>: <a href="https://invisv.com/articles/relay_for_all.html">INVISV Relay: Providing Multi-Hop Privacy for All</a></p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="related-work"><a class="header" href="#related-work">Related Work</a></h1>
+<p>This sketch draws on a wealth of prior work that has has gotten us where we are today. This architecture draws inspiration from (and uses as a security primitive) ratcheting message security keys from Double Ratchet and MLS.</p>
+<p>Message transmission architecture has inspiration from onion routing, and is adapted for the different nature of store and forward messaging from client-server sessions. Address diversification is structurally similar to onion routing, and I expect rate limiting between receiving and sending services will draw on operational experience from Tor nodes as well as email domain reputation heuristics.</p>
+<p>Indeed, a conceptual ancestor to onion routing is David Chaum’s proposal for anonymous communication using mixnets:
+https://dl.acm.org/doi/pdf/10.1145/358549.358563</p>
+<p>I’ve also found helpful (if time-shifted) discussion from Trevor Perrin’s Modern Messaging mailing list archives and the many active participants there who have raised ideas and feedback relevant to different aspects of this sketch.
+<a href="https://moderncrypto.org/mail-archive/messaging/">The Messaging Archives</a></p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+            </nav>
+
+        </div>
+
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        <script type="text/javascript">
+        window.addEventListener('load', function() {
+            MathJax.Hub.Register.StartupHook('End', function() {
+                window.setTimeout(window.print, 100);
+            });
+        });
+        </script>
+    </body>
+</html>
