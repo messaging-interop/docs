@@ -1,6 +1,6 @@
 # Relationships
 
-Relationships, not identities, are the fundamental unit of this architecture. Identities are contextual to each relationship, and users can choose how each of those contextual relationships relate to fixed or public identies, such as those published in directorie.
+Relationships, not identities, are the fundamental unit of this architecture. Identities are contextual to each relationship, and users can choose how each of those contextual relationships relate to fixed or public identies, such as those published in directories.
 
 A **relationship** \\(R\\) between Alex and Blair is a pair of data structures \\(P_a\\) and \\(P_b\\), stored by Alex and Blair respectively, that represent each end (role) of the relationship, and contain the data needed to communicate with the other party. Let’s call  \\(P_a\\) and \\(P_b\\) **Particles**, to reflect the intuition that they are entangled (through message exchange) and reflect shared state.
 

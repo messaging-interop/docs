@@ -24,7 +24,7 @@ These attestations can be used in the following ways:
 	- Alex and Blair met and exchanged keys \\(IPK_A\\) and \\(IPK_B\\), but Alex wants to prove they also have a attested identity \\(IPK_{A_D}\\) from a Directory Server
 		- Alex should generate a new \\(IPK_{A-Merged}\\) and present attestations that it follows \\(IPK_A\\) and \\(IPK_{A_D}\\)
 - Forking threads
-	- If Alex wants to fork a conversation they have with Blair across identities  \\(IPK_A\\) and \\(IPK_B\\), Alex can generate a new identity key \\($$IPK_{A'}\\), and assert an equivalence between \\(IPK_A\\) and \\(IPK_{A'}\\). From Blair’s point of view, \\($$IPK_{A'}\\) should be a new thread, inheriting whatever trust they had in \\(IPK_A\\)
+	- If Alex wants to fork a conversation they have with Blair across identities  \\(IPK_A\\) and \\(IPK_B\\), Alex can generate a new identity key \\(IPK_{A'}\\), and assert an equivalence between \\(IPK_A\\) and \\(IPK_{A'}\\). From Blair’s point of view, \\(IPK_{A'}\\) should be a new thread, inheriting whatever trust they had in \\(IPK_A\\)
 
 ### Conflicts
 After issuing an attestation that B follows A, clients should delete the private key for A, and sending chain keys derived from A. (They should keep the receiving keys for some period of time). Future messages should be sent with chain keys derived from B.
@@ -32,7 +32,7 @@ After issuing an attestation that B follows A, clients should delete the private
 Still, conflicts can arise if clients receive conflicting attestations that B follows A, and C follows A. These can result from software bugs, a [device with outdated state](devices.md) , or compromise of private keys. A device with outdated state can heal its state by reaching consensus with a device with newer state about ordering of keys. E.g. by issuing an attestation that C follows B.
 
 Otherwise, these conflicts must be resolved by the user. There are two cryptographic identities claiming to be Blair, which one is correct? Examples of how this might arise:
-- Alex introduces Blair to a backup identity \\(A’\\) that follows \\(A\\)_.  The backup service is compromised and an attacker attempts to impersonate Alex using $$A’$$. There are now two claims to Alex’s identity.
+- Alex introduces Blair to a backup identity \\(A’\\) that follows \\(A\\).  The backup service is compromised and an attacker attempts to impersonate Alex using \\(A’\\). There are now two claims to Alex’s identity.
 	- The presumption could be that a use of a backup identity A’ while A is active is fraudulent and should be assumed to be malicious. But Alex’s device might have been compromised, and is attempting to restart their relationship from a backup.
 	- Technology can’t resolve this conflict - Blair has to socially resolve this conflict between the two claims to Alex’s identity, for example, by verifying keys in person
 - An external attestation is a way of resolving this conflict.

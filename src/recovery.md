@@ -1,28 +1,33 @@
 # Recovery
 
-There are two different recovery challenges - recovery of message history, and recovery of relationships, since they are now dependent on private data stored on users' devices.
+We can use the notion of introduction to provide a recovery mechanism that does not depend on a user secret.
 
-There is a spectrum of techniques for backing up data, with tradeoffs between privacy and recoverability. One may store data with a recovery service, protected with a user secret to prevent the service from accessing that data. But that data is irretrievable if the user forgets their secret. There are enhancements to this approach where I can enlist trusted parties to hold parts of the secret, so that no one party can access my data[^1].
+Suppose Alex and Blair have a relationship, based in identity (public keys) \\(A\\) and \\(B\\)
 
-People may choose different points on this spectrum for themselves, for their message history, and for their relationships.
+When a user Alex enlists a recovery service \\(R\\) to recover a relationship with Blair, they are effectively asking \\(R\\) to reintroduce them as a new identity \\(A_r\\). If this recovery flow is to be resilient against device compromise, then \\(A_r\\) cannot be known ahead of time (or a device compromise would give the attacker access to \\(A_r\\) as well). 
 
-We can introduce an additional recovery mechanism for relationships that is robust against losing all my data and forgetting my recovery secret(s), but has safeguards against the escrow party impersonating me - using the notion of introductions:
+## Preparation
 
-### Escrowed Relationship Backup
-Alex has a relationship with Blair that is based on cryptographic secrets stored in their respective Particles. To protect against the loss of that data, Alex can introduce Blair to a future Alex \\(A'\\), and escrow \\(A'\\)'s keys with a third party.
+Alex and Blair can pre-arrange recovery in the following way:
+- Alex creates a recovery identity key pair \\(A_r\\), a (long-lived) recovery address(es) \\(Addr_A\\), and a recovery identifier \\(ID_A\\) for a key directory \\(K_A\\), and sends the public key, address, key directory, and recovery identifier to Blair.
+	- Blair symmetrically generates \\(B_r\\), \\(Addr_B\\), \\(ID_B\\) for \\(K_B\\), and sends them (excluding the private key) to Alex.
+	- (Implicitly the public identity key is accompanied by some pre-keys as needed for a key agreement protocol throughout this description)
+- Alex can then store the Recovery Particle \\(RP_B\\) with a trusted party in plaintext:
+	- Blair's name
+	- A recovery identity key that Blair has today \\(B_r\\)
+	- Recovery Address(es) for Blair \\(Addr_B\\)
+	- A way to get a future identity for Blair: \\(ID_B\\) at \\(K_B\\)
+	- The key directory entry that Blair expects to receive messages from: \\(ID_A\\)
 
-The data Alex needs to escrow are:
-- A long-term address for Blair.
-- Blair’s IPK for this relationship
-- A signing key for \\(A'\\)
-- A preferred name for Blair
+The first exchange limits the exposure of data about Alex and Blair's current communications - only the recipient's name, receiving service agent, and key directory.
 
-If Alex loses all of their Particle data, they can obtain this backup, notify all their relationships of the loss, and use each \\(A'\\) to introduce the relationship to a new device resident identity \\(A_r\\).
+## Recovery
 
-As with introductions, remote parties should only accept the use of this placeholder key \\(A'\\) for introduction to a new identity. The escrow party cannot impersonate the Alex, but can falsely claim to be a future, post-recovery Alex \\(A_r\\). This should be easy to repudiate if Alex is still online. Recipients of such a recovery message should immediately consult \\(A\\), and until they can verify \\(A_r\\), consider the possibility that the escrow party had inserted themselves in the conversation.
+1. Alex can then recover from compromise or data loss by authenticating with \\(R\\) to retrieve \\(RP_B\\), generating a new identity \\(A'\\), and registering the public key for \\(A'\\) with \\(K_A\\) for the identity \\(ID_A\\).
 
-If Alex’s relationship with Blair is based on a publicly attested identity (i.e. a Twitter handle), Alex can instead rely on Twitter for identity recovery, and to publish a new IPK and address(es) for Alex.
+2. Alex can then compose an initial key agreement message to \\(B_r\\), from \\(A'\\) and send it to \\(Addr_B\\)
 
-Escrow parties, then, learn about the remote parties that Alex communicates with. They may be able to associate those backed up contacts with outgoing messages to the long-term address, but by design there is nothing to associate those contacts with user’s incoming messages. Receiving services are natural candidates to escrow these contacts. Using two separate receiving services as the system intends, prevents the escrow party from also denying receiving service to prevent repudiation of a misused backup.
+3. Blair, on receipt of a message at \\(B_r\\), can consult \\(K_A\\) for Alex's new identity public key under the entry for \\(ID_A\\)
 
-[^1]: Apple's account recovery contact: https://support.apple.com/guide/security/account-recovery-contact-security-secafa525057/1/web/1
+If the key directory also allows the registration of a new address, then \\(K_A\\) and \\(K_B\\) can jointly provide recovery from data loss by both parties, as \\(ID_A\\) and \\(ID_B\\) effectively form a pre-arranged rendezvous.
+

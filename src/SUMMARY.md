@@ -3,6 +3,7 @@
 [Communicator Overview](architecture-overview.md)
 - [Relationship Concepts]()
 	- [Authentication](authentication.md)
+	- [Durability](durability.md)
 	- [Permission to Contact](principles-permission.md)
 	- [Interoperability](interoperability.md)
 - [Technical Concepts]()
